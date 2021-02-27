@@ -1,0 +1,32 @@
+header .logo {
+    width: 150px;
+    height: auto;
+
+}
+
+header .cartDiv{
+    position: relative;
+    display: inline-block;
+}
+
+header .cartProd{
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    padding: 2px 2;
+    border-radius: 50px;
+   
+    /* Position the tp text - see examples below! */
+    position: absolute;
+    left: 18px;
+    bottom:12px;
+    z-index: 1;
+}
+
+header .logout:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+

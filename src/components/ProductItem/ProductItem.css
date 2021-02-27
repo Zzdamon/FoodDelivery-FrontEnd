@@ -1,0 +1,40 @@
+.product-item img {
+    max-width: 200px;
+    max-height: 250px;
+}
+
+.product-item .favBtn:hover {
+    cursor: pointer;
+}
+
+/* Tooltip container */
+.tp {
+    position: relative;
+    display: inline-block;
+    /* border-bottom: 1px dotted black; If you want dots under the hoverable text */
+  }
+  
+  /* tp text */
+  .tp .tptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tp text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tp text when you mouse over the tp container */
+  .tp:hover .tptext {
+    visibility: visible;
+  }
+  /* </style>
+  
+  <div class="tp">Hover over me
+    <span class="tooltiptext">Tooltip text</span>
+  </div> */
