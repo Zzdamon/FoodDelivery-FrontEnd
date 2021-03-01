@@ -15,7 +15,7 @@ export function userReducer(state = initialState, action) {
         case UserConstants.updateUserData:
             let user=action.payload;
             
-                localStorage.setItem("game-start-user",JSON.stringify(user));
+                localStorage.setItem("yEAt-user",JSON.stringify(user));
             
             return Object.assign({}, state, {
                 data: user,
