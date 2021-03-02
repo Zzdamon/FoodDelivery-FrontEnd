@@ -1,36 +1,33 @@
-import React, { Component } from 'react';
-import Layout from '../components/Layout/Layout';
-import products from '../utils/products.json';
-import ProductList from '../components/ProductList';
+import React, { Component } from 'react'
 
-class Category extends Component {
-    constructor(props) {
+export default class Category extends Component {
+    constructor(props){
         super(props);
-        this.state = {
-            category: {},
-            items: []
+        this.state={
+            TagId: "",
+            restaurants:[]
         }
     }
 
-    componentDidMount() {
+    componentDidMount(){
         const { match } = this.props;
-        const categoryName = match.params.categoryName;
-        this.setState({
-            category: products[categoryName],
-            items: products[categoryName].items
+         fetch(`http://localhost:5000/api/restauranttags/${match.params.category}`)
+         .then(restaurants=>restaurants.json())
+         .then(restaurants=>{
+            console.log(restaurants) 
+            this.setState({restaurants:restaurants})
         });
+         
     }
 
     render() {
+        console.log(this.state.restaurants)
         return (
-            <Layout>
-                <div className="container-fluid container-min-max-width">
-                    <h2>{ this.state.category.name }</h2>
-                    <ProductList products={this.state.items} />
-                </div>
-            </Layout>
-        );
+            <div>
+                {this.state.restaurants.map(rest=>{
+                    return <p>{rest.restaurant.name}</p>
+                })}
+            </div>
+        )
     }
 }
-
-export default Category;
