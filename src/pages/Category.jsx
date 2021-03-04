@@ -11,7 +11,7 @@ export default class Category extends Component {
 
     componentDidMount(){
         const { match } = this.props;
-         fetch(`http://localhost:5000/api/restauranttags/${match.params.category}`)
+         fetch(`http://localhost:5000/api/restauranttags/${match.params.category.replace("_"," ")}`)
          .then(restaurants=>restaurants.json())
          .then(restaurants=>{
             console.log(restaurants) 
