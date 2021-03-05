@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout/Layout';
 // import Homecategory from '../components/Homecategory';
 import HomeCategory from '../components/HomeCategory';
-
+import {fetchCategories} from '../apis/yEat/yeat';
 class Home extends React.Component{
     constructor() {
         super();
@@ -11,10 +11,17 @@ class Home extends React.Component{
         }
     }
 
+     fetchCategoriesToState=()=>{
+         fetchCategories()
+        .then(categories=>this.setState({categories:categories}))
+        .catch((error) => {
+            console.error('Error:', error);
+          });
+    }
+
     componentDidMount() {
-       fetch("http://localhost:5000/api/tags")
-       .then(rest=> rest.json())
-       .then(categories=>this.setState({categories:categories}));
+        this.fetchCategoriesToState();
+       
     }
 
     render() {

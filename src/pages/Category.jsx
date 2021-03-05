@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {fetchRestaurants} from '../apis/yEat/yeat';
 
 export default class Category extends Component {
     constructor(props){
@@ -8,15 +9,20 @@ export default class Category extends Component {
             restaurants:[]
         }
     }
+    
 
     componentDidMount(){
         const { match } = this.props;
-         fetch(`http://localhost:5000/api/restauranttags/${match.params.category.replace("_"," ")}`)
-         .then(restaurants=>restaurants.json())
-         .then(restaurants=>{
-            console.log(restaurants) 
-            this.setState({restaurants:restaurants})
-        });
+        const category= match.params.category.replace("_"," ");
+
+         fetchRestaurants(category)
+         .then(restaurants => {
+                console.log(restaurants) 
+                this.setState({restaurants:restaurants})
+            })
+        .catch((error) => {
+            console.error('Error:', error);
+          });
          
     }
 
