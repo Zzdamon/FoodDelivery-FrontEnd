@@ -25,3 +25,29 @@ export const fetchRestaurants= (tag)=>{
     return fetch(`http://localhost:5000/api/restauranttags/${tag}`)
     .then(restaurants=>restaurants.json())
 }
+
+export const fetchMenuCategories= (restId)=>{
+    return fetch(`http://localhost:5000/api/categories/byRestId/${restId}`)
+    .then(categories=>categories.json())
+}
+
+// export const fetchCategoryItems= ()=>{
+//     return fetch(`http://localhost:5000/api/categories/byRestId/${restId}`)
+//     .then(restaurants=>restaurants.json())
+// }
+
+
+export const fetchItems=(categoryIDs)=>{
+    // const auth= {email, password};
+    
+    return fetch('http://localhost:5000/api/items/byCategId',
+        {
+            method: 'POST', // or 'PUT'
+            headers: {
+                        'Content-Type': 'application/json',
+                     },
+            body: JSON.stringify(categoryIDs),
+        })
+  .then(response => response.json())
+  
+}

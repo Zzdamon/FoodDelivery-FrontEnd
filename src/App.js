@@ -12,6 +12,7 @@ import Product from './pages/Product/Product';
 import Favourites from './pages/Favourites';
 import Orders from './pages/Orders';
 import Category from './pages/Category'
+import Restaurant from './pages/Restaurant';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
         <Route path="/orders" component={Orders}/>
         <Route path="/favourites" component={Favourites}/>
         <Route path="/product/:productId" component={Product}/>
-        <Route path="/restaurant/:restId" component={Home}/>
+        <Route path="/restaurant/:restId" component={Restaurant}/>
         <Route path="*" component={Page404}/>
       </Switch>
     </div>
