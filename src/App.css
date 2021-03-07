@@ -11,3 +11,8 @@ body a:hover {
     max-height: 80px;
 
 }
+
+#restLogo {
+    max-width: 120px;
+    max-height: 120px;
+}

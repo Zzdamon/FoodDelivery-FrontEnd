@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import MyAccount from './pages/MyAccount';
 import Login from './pages/Login/Login';
 import Page404 from './pages/Page404';
-import Restaurant from './pages/Restaurant';
+// import Restaurant from './pages/Restaurant';
 import Cart from './pages/Cart/Cart';
 import './utils/utility-classes.css';
 import Product from './pages/Product/Product';
@@ -25,8 +25,8 @@ function App() {
         <Route path="/my-account" component={MyAccount}/>
         <Route path="/orders" component={Orders}/>
         <Route path="/favourites" component={Favourites}/>
-        <Route path="/restaurant/:categoryName" component={Restaurant}/>
         <Route path="/product/:productId" component={Product}/>
+        <Route path="/restaurant/:restId" component={Home}/>
         <Route path="*" component={Page404}/>
       </Switch>
     </div>
@@ -34,3 +34,4 @@ function App() {
 }
 
 export default App;
+        {/* <Route path="/restaurant/:categoryName" component={Restaurant}/> */}
