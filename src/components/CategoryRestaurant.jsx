@@ -8,9 +8,8 @@ export default function Restaurant(props) {
     const {name,logo,minOrder,address,description,id} = props.restaurant;
     console.log(props)
     return (
-        <Link to={`/Restaurant/${id}`} className="container m-2 border border-silver"
+        <Link to={`/Restaurant/${id}`} className="container d-flex m-2 border border-silver"
             >
-            <div className="container-min-max-width d-flex align-items-center">
                 <img id="restLogo" src={logo}></img>
                 <div>
                     <h3>{name}</h3>
@@ -19,7 +18,7 @@ export default function Restaurant(props) {
                     <h6>Min Order: {minOrder}</h6>
 
                 </div>
-            </div>
+            
         </Link>
     )
 }

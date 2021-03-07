@@ -2,14 +2,15 @@ import React from 'react';
 import ProductItem from './ProductItem/ProductItem';
 
 function ProductList(props) {
-    const { products } = props;
+    const { items,category } = props;
 
     return (
         <div className="d-flex flex-wrap my-4">
-            { products.map((product) => {
+            { items.map((item) => {
+                if(item.categId===category.categId)
                 return <ProductItem
-                    {...product}
-                    key={product.id}
+                    {...item}
+                    key={item.itemId}
                 />
             })}
         </div>

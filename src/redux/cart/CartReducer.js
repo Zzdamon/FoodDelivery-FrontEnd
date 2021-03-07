@@ -13,7 +13,7 @@ export function cartReducer(state = initialState, action) {
         case CartConstants.add:
             let productInCart = false;
             const updatedProducts = state.products.map(product => {
-                if (product.id === action.payload.product.id) {
+                if (product.itemId === action.payload.product.itemId) {
                     productInCart = true;
                     return {
                         ...product,
@@ -48,7 +48,7 @@ export function cartReducer(state = initialState, action) {
             }
         case CartConstants.rm:
             const filteredProducts = state.products.filter(product => {
-                return product.id !== action.payload.id
+                return product.itemId !== action.payload.itemId
             });
             let items= Object.assign({}, state, {
                 products: filteredProducts

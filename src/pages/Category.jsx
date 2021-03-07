@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {fetchRestaurants} from '../apis/yEat/yeat';
 import Restaurant from '../components/CategoryRestaurant';
+import Layout from '../components/Layout/Layout';
 import RestaurantList from '../components/RestaurantList';
 
 export default class Category extends Component {
@@ -31,9 +32,10 @@ export default class Category extends Component {
     render() {
         console.log(this.state.restaurants)
         return (
-            <div>
+            <Layout>
+                <h5>{this.props.match.params.category}</h5>
                 <RestaurantList restaurants={this.state.restaurants} />
-            </div>
+            </Layout>
         )
     }
 }
