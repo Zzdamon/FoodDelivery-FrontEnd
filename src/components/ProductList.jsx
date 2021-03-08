@@ -10,6 +10,7 @@ function ProductList(props) {
                 if(item.categId===category.categId)
                 return <ProductItem
                     {...item}
+                    restaurant={props.restaurant}
                     key={item.itemId}
                 />
             })}

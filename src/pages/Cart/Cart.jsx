@@ -37,7 +37,7 @@ function Cart(props) {
                                     <p className="w-25">{ product.quantity }</p>
                                     <div className="w-25 d-flex justify-content-center">
                                         <p className="mr-2">{ product.price * product.quantity } { product.currency }</p>
-                                        <div onClick={() => props.removeFromCart({id: product.id})}>
+                                        <div onClick={() => props.removeFromCart({itemId: product.itemId})}>
                                             <Close />
                                         </div>
                                     </div>
@@ -62,25 +62,11 @@ function Cart(props) {
                                             props.history.push("/login")
                                             return;
                                         }
-                                        let initial= JSON.parse(localStorage.getItem("game-start-orders"));
-
-                                        if(!initial){
-                                            initial={
-                                            };
-                                        }
-                                        if(!initial[props.user.data.email]){
-                                            initial[props.user.data.email]=[];
-                                        }
+                                       
                                             let date=new Date();
-                                            date=date.toDateString();
-
-                                            initial[props.user.data.email].push({products:props.products,
-                                            date:date})
+                                           
                                         
-
-
-                                        localStorage.setItem("game-start-orders",JSON.stringify(initial));
-                                        props.emptyCart();
+                                            props.emptyCart();
                                     }}
                                 >Order</button>
                                  </div>

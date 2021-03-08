@@ -26,6 +26,11 @@ export const fetchRestaurants= (tag)=>{
     .then(restaurants=>restaurants.json())
 }
 
+export const fetchRestaurantById= (id)=>{
+    return fetch(`http://localhost:5000/api/restaurants/${id}`)
+    .then(restaurant=>restaurant.json())
+}
+
 export const fetchMenuCategories= (restId)=>{
     return fetch(`http://localhost:5000/api/categories/byRestId/${restId}`)
     .then(categories=>categories.json())

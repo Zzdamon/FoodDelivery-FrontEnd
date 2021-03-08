@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {fetchMenuCategories,fetchItems} from '../apis/yEat/yeat'
+import {fetchMenuCategories,fetchItems, fetchRestaurantById} from '../apis/yEat/yeat'
 import Menu from '../components/Menu';
 
 export default class Restaurant extends Component {
@@ -17,7 +17,10 @@ export default class Restaurant extends Component {
 
 
     async componentDidMount(){
-       await fetchMenuCategories(this.state.restId)
+       fetchRestaurantById(this.state.restId)
+       .then(rest=>this.setState({restaurant:rest}))
+
+        await fetchMenuCategories(this.state.restId)
         .then(categories=>{ 
             // console.log(categories);
             this.setState({categories:categories})});
@@ -37,7 +40,8 @@ export default class Restaurant extends Component {
         return (
             <div>
                 <Menu categories = {this.state.categories}
-                        items = {this.state.items} />
+                        items = {this.state.items} 
+                        restaurant={this.state.restaurant}/>
             </div>
         )
     }

@@ -2,7 +2,8 @@ import React from 'react'
 import ProductList from './ProductList';
 
 export default function MenuCategory(props) {
-    const {category, items}=props;
+    const {category}=props;
+    console.log(props)
 
     return (
         <div>

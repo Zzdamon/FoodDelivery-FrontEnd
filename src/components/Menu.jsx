@@ -9,6 +9,7 @@ export default function Menu(props) {
             {props.categories.map(categ=>
                 <MenuCategory category={categ}
                                 items={props.items}
+                                restaurant={props.restaurant}
                                 key={categ.categId} />  
             )}
         </Layout>

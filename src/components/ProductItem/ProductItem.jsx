@@ -7,37 +7,22 @@ import { addToFavourites, removeFromFavourites } from '../../redux/favourites/Fa
 import  { ReactComponent as Favourite} from '../../assets/icons/favourite.svg'
 import  { ReactComponent as UnFavourite} from '../../assets/icons/favFill.svg'
 
-// class ProductItem extends React.Component {
-//     // const {name, price, currency, image, id} = props;
-
-//     constructor(props){
-//         super(props);
-//         this.state={
-//             item:{...props},
-//             favourites:[],
-//             fav:false
-//         }}
-
-//     //     componentDidMount(){
-//     //         this.state.favourites.map(prod=>{
-//     //             if(prod.id===this.state.item.id){
-//     //                     this.setState({
-//     //                         fav:true
-//     //                     })
-//     //             }
-//     //     })
-//     // }
-
-//     // componentDidUpdate(){
-//     //     this.state.favourites.map(prod=>{
-//     //         if(prod.id===this.state.item.id){
-//     //                 this.setState({
-//     //                     fav:true
-//     //                 })
-//     //         }
-//     // })
-//     // }
-
+function addItemToCart(props){
+    
+    console.log(props)
+    // if(props.cart.restaurant.id==props.restaurant.id){
+        props.addToCart({
+            restaurant: props.restaurant,
+            product: {
+                itemId: props.itemId,
+                name: props.name,
+                price: props.price,
+                description: props.description
+                
+            }
+            })
+    // }
+}
 
 function ProductItem(props){
         
@@ -57,15 +42,7 @@ function ProductItem(props){
             <div className=" mt-3">
                 <button
                     className="btn btn-outline-primary"
-                    onClick={() => props.addToCart({
-                    product: {
-                        itemId,
-                        name,
-                        price,
-                        description
-                        
-                    }
-                    })}
+                    onClick={() =>addItemToCart(props)}
                 >
                 Adaugă în coș
                 </button>
@@ -87,7 +64,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-      favourites:state.favourites.products
+      cart:state.cart
     }
 }
 

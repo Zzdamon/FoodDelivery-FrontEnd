@@ -1,17 +1,23 @@
 import * as CartConstants from './CartConstants'
 
-let initialCart=JSON.parse(localStorage.getItem("game-start-cart"));
-initialCart? initialCart=initialCart.products
-: initialCart=[];
+let initialState = {
+    products: [],
+    restaurant: null
+}
 
-const initialState = {
-    products: initialCart
+let initialCart=JSON.parse(localStorage.getItem("yeat-cart"));
+
+if(initialCart){
+    initialState.products=initialCart.products;
+    initialState.restaurant=initialCart.restaurant;
+
 }
 
 export function cartReducer(state = initialState, action) {
     switch (action.type) {
         case CartConstants.add:
             let productInCart = false;
+            
             const updatedProducts = state.products.map(product => {
                 if (product.itemId === action.payload.product.itemId) {
                     productInCart = true;
@@ -25,24 +31,37 @@ export function cartReducer(state = initialState, action) {
             })
 
             if (!productInCart) {
+                let items={};
+                if(action.payload.restaurant===state.restaurant){
 
-                let items= Object.assign({}, state, {
-                    products: [
-                        ...state.products,
-                        {
-                            ...action.payload.product,
-                            quantity: 1
+                    items= Object.assign({}, state, {
+                        products: [
+                            ...state.products,
+                            {
+                                ...action.payload.product,
+                                quantity: 1
+                            }
+                        ],
+                    })
+                }
+                    else{
+                        items={
+                            products: [ {
+                                ...action.payload.product,
+                                quantity: 1
+                            }],
+                            restaurant: action.payload.restaurant
                         }
-                    ]
-                })
-                localStorage.setItem("game-start-cart",JSON.stringify(items));
+                    }
+                localStorage.setItem("yeat-cart",JSON.stringify(items));
                 return items;
 
             } else {
                 let items= Object.assign({}, state, {
-                    products: updatedProducts
+                    products: updatedProducts,
+                   
                 });
-                localStorage.setItem("game-start-cart",JSON.stringify(items))
+                localStorage.setItem("yeat-cart",JSON.stringify(items))
                 return items;
 
             }
@@ -53,11 +72,11 @@ export function cartReducer(state = initialState, action) {
             let items= Object.assign({}, state, {
                 products: filteredProducts
             });
-            localStorage.setItem("game-start-cart",JSON.stringify(items))
+            localStorage.setItem("yeat-cart",JSON.stringify(items))
             return items;
         
         case CartConstants.empty:
-            localStorage.setItem("game-start-cart",null)
+            localStorage.setItem("yeat-cart",null)
             return Object.assign({}, state, {
                 products: []
             });
