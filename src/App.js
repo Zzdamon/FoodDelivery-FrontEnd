@@ -8,7 +8,7 @@ import Page404 from './pages/Page404';
 // import Restaurant from './pages/Restaurant';
 import Cart from './pages/Cart/Cart';
 import './utils/utility-classes.css';
-import Product from './pages/Product/Product';
+// import Product from './pages/Product/Product';
 import Favourites from './pages/Favourites';
 import Orders from './pages/Orders';
 import Category from './pages/Category'
@@ -26,7 +26,7 @@ function App() {
         <Route path="/my-account" component={MyAccount}/>
         <Route path="/orders" component={Orders}/>
         <Route path="/favourites" component={Favourites}/>
-        <Route path="/product/:productId" component={Product}/>
+        {/* <Route path="/product/:productId" component={Product}/> */}
         <Route path="/restaurant/:restId" component={Restaurant}/>
         <Route path="*" component={Page404}/>
       </Switch>

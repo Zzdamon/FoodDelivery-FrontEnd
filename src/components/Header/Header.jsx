@@ -17,7 +17,7 @@ function Header(props) {
                 <div>
                     { props.user
                         ?<Link to="/my-account">
-                             <p>Hello, {props.user.displayName}!</p>
+                             <p>Hello, {props.user.name}!</p>
                         </Link>
                         : null
                     }

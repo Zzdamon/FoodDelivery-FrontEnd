@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './Layout/Layout';
-import products from '../utils/products.json';
+
 import ProductList from './ProductList';
 import { Link } from 'react-router-dom';
 

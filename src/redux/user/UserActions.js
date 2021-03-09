@@ -1,5 +1,6 @@
 import { signIn, signOut } from '../../apis/firebase/firebase';
 import * as UserConstants from './UserConstants'
+import {auth} from '../../apis/yEat/yeat'
 
 function startLoading() {
     return {
@@ -19,6 +20,22 @@ function updateUserError(payload) {
     }
 }
 
+export function loginUser(email,password) { 
+    return (dispatch) => {
+        dispatch(startLoading());
+        // if(provider==="google"){
+
+            auth(email,password).then(userData => {
+                dispatch(updateUserData(userData));
+            }).catch(error => {
+                dispatch(updateUserError(error));
+            });
+        }
+}
+
+export function logoutUser() {
+    return (dispatch) => dispatch(updateUserData(null));
+}
 
 
 // async function updateServer(userData){
@@ -29,27 +46,27 @@ function updateUserError(payload) {
 //     })
 // }
 
-export function loginUser(provider) { 
-    return (dispatch) => {
-        dispatch(startLoading());
-        // if(provider==="google"){
+// export function loginUser(provider) { 
+//     return (dispatch) => {
+//         dispatch(startLoading());
+//         // if(provider==="google"){
 
-            signIn(provider).then(userData => {
-                // updateServer();
-                dispatch(updateUserData(userData.user));
-            }).catch(error => {
-                dispatch(updateUserError(error));
-            });
-        }
-}
-export function logoutUser() {
-    return dispatch => {
-        dispatch(startLoading());
+//             signIn(provider).then(userData => {
+//                 // updateServer();
+//                 dispatch(updateUserData(userData.user));
+//             }).catch(error => {
+//                 dispatch(updateUserError(error));
+//             });
+//         }
+// }
+// export function logoutUser() {
+//     return dispatch => {
+//         dispatch(startLoading());
 
-        signOut().then(() => {
-            dispatch(updateUserData(null));
-        }).catch((error) => {
-            dispatch(updateUserError(error));
-        });
-    }
-}
+//         signOut().then(() => {
+//             dispatch(updateUserData(null));
+//         }).catch((error) => {
+//             dispatch(updateUserError(error));
+//         });
+//     }
+// }
