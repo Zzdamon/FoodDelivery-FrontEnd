@@ -33,6 +33,12 @@ export function loginUser(email,password) {
         }
 }
 
+export function registerUser(user) { 
+    return (dispatch) => dispatch(updateUserData(user));
+    
+}
+
+
 export function logoutUser() {
     return (dispatch) => dispatch(updateUserData(null));
 }

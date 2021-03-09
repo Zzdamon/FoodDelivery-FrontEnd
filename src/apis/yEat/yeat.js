@@ -21,6 +21,21 @@ export const auth=(email, password)=>{
   
 }
 
+export const register=(email, password,name,accountType)=>{
+    const user= {email, password,name,accountType};
+    
+    return fetch('http://localhost:5000/api/Users',
+        {
+            method: 'POST', // or 'PUT'
+            headers: {
+                        'Content-Type': 'application/json',
+                     },
+            body: JSON.stringify(user),
+        })
+  .then(response => response.json())
+  
+}
+
 export const fetchRestaurants= (tag)=>{
     return fetch(`http://localhost:5000/api/restauranttags/${tag}`)
     .then(restaurants=>restaurants.json())

@@ -5,6 +5,7 @@ import Logo from '../../assets/images/gamestart1.png';
 // import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg';
 import './Login.css'
 import LoginForm from '../../components/LoginForm'
+import SignUpForm from '../../components/SignUpForm';
 
 class Login extends React.Component {
 
@@ -37,7 +38,7 @@ class Login extends React.Component {
                     onClick={()=>this.setState({register:true})}>Sign Up</button>
                     </div>
                 </div>
-                :null
+                :<SignUpForm {...this.props} />
                 }
                 
             </div>
