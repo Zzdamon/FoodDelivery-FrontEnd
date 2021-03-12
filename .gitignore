@@ -13,6 +13,7 @@
 
 #firebase config
 src/configs/firebase.js
+src/configs/googleApi.js
 
 # misc
 .DS_Store

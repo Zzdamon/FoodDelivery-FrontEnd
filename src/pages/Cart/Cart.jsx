@@ -5,6 +5,7 @@ import { emptyCart, removeFromCart } from '../../redux/cart/CartActions';
 import { Link } from 'react-router-dom';
 import './Cart.css';
 import { ReactComponent as Close} from '../../assets/icons/close.svg';
+import OrderForm from '../../components/OrderForm';
 
 function Cart(props) {
     const totalSum = (products) => {
@@ -18,7 +19,7 @@ function Cart(props) {
             <div className="cart-page container-fluid container-min-max-width
                 d-flex flex-column justify-content-center align-items-center">
                 {
-                    props.products.length
+                    props.cart.products.length
                     ? <div className="w-100">
                         <div className="d-flex justify-content-between text-center h4 text-bold">
                             <p className="w-25">Produs</p>
@@ -27,7 +28,7 @@ function Cart(props) {
                             <p className="w-25">Total</p>
                         </div>
                         {
-                            props.products.map(product => {
+                            props.cart.products.map(product => {
                                 return <div className="d-flex justify-content-between align-items-center text-center" key={product.id}>
                                     <div className="w-25 d-flex flex-column justify-content-center align-items-center">
                                         <img src={product.image} alt="Produs"/>
@@ -50,11 +51,13 @@ function Cart(props) {
                             </div>
                             <div className="w-25">
                                 <p className="my-4 text-center">
-                                    { totalSum(props.products) } { props.products[0].currency }
+                                    { totalSum(props.cart.products) } lei
+                                    {/* { props.cart.products[0].currency } */}
                                 </p>
                             </div>
                         </div>
-                        <div className="container-min-max-width d-flex justify-content-end">
+                        <OrderForm {...props}/>
+                        {/* <div className="container-min-max-width d-flex justify-content-end">
                                 <button className="btn w-25 btn-success mw-6"
                                     onClick={()=>{
                                         if(!props.user.data){
@@ -69,7 +72,7 @@ function Cart(props) {
                                             props.emptyCart();
                                     }}
                                 >Order</button>
-                                 </div>
+                        </div> */}
                     </div>
                     : <div className="d-flex w-25 flex-column align-items-center">
                         <p className="h3">Nu ai produse în coș!</p>
@@ -83,7 +86,7 @@ function Cart(props) {
 
 function mapStateToProps(state) {
     return {
-        products: state.cart.products,
+        cart: state.cart,
         user: state.user
     };
 }

@@ -71,3 +71,27 @@ export const fetchItems=(categoryIDs)=>{
   .then(response => response.json())
   
 }
+
+export const postOrder=(order)=>{
+    return fetch('http://localhost:5000/api/orders',
+        {
+            method: 'POST', // or 'PUT'
+            headers: {
+                        'Content-Type': 'application/json',
+                     },
+            body: JSON.stringify(order),
+        })
+  .then(response => response.json())
+}
+
+export const postOrderItems=(orderItems)=>{
+    return fetch('http://localhost:5000/api/orderItems',
+        {
+            method: 'POST', // or 'PUT'
+            headers: {
+                        'Content-Type': 'application/json',
+                     },
+            body: JSON.stringify(orderItems),
+        })
+  .then(response => response.json())
+}
