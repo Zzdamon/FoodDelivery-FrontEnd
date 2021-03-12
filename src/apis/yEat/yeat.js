@@ -85,7 +85,7 @@ export const postOrder=(order)=>{
 }
 
 export const postOrderItems=(orderItems)=>{
-    return fetch('http://localhost:5000/api/orderItems',
+    return fetch('http://localhost:5000/api/orderItems/bulk',
         {
             method: 'POST', // or 'PUT'
             headers: {

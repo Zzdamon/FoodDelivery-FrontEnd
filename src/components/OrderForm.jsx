@@ -50,7 +50,7 @@ class OrderForm extends Component {
           let orderItems=[];
           // console.log(order)
 
-
+            //GEOCODING
             // geocodeByAddress(address)
             // .then(coordinates=>{
             //   // console.log(coordinates)
@@ -59,12 +59,15 @@ class OrderForm extends Component {
             //   //{lat: , lng: }
             // })
             // .catch(error=>console.log(error));
+            //END OF GEOCODING
 
+            //POST ORDER
              await yeat.postOrder(order)
               .then(postOrder=>{
                 console.log(postOrder)
                let Orderid= postOrder.orderId;
-               for (let item in this.props.cart.products){
+               for (let item of this.props.cart.products){
+                 console.log(item)
                   orderItems.push({
                     itemId: item.itemId,
                     orderId:Orderid
@@ -73,11 +76,18 @@ class OrderForm extends Component {
                        console.log(orderItems)
 
               })
-                // let orderItem=orderItems[0]
+              //END OF POST ORDER
 
+
+                let orderItem=orderItems[0]
+                console.log(orderItem)
+                console.log(orderItems)
+
+
+                //POST ORDER ITEMS
                yeat.postOrderItems(orderItems)
                .then(items=>console.log(items))
-              
+              //END POST ORDER ITEMs
 
             
             
