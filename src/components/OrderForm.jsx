@@ -10,27 +10,57 @@ import PlacesAutocomplete , {
     getLatLng,
   } from 'react-places-autocomplete';
 import * as yeat from '../apis/yEat/yeat';
+import { HubConnection } from 'signalr-client-react';
+import { HubConnectionBuilder } from '@microsoft/signalr';
+
+
 
 class OrderForm extends Component {
     constructor(props){
         super(props);
+     
         this.state={
             items:props.products,
             street:"",
             no:"",
             city:"",
-            postalCode:""
+            postalCode:"",
+            connection: new HubConnectionBuilder()
+            .withUrl('http://localhost:5000/hubs/OrdersHub')
+            .withAutomaticReconnect()
+            .build()
         }
+        
     }
-
+ 
 
   changeHandler(event) {
     this.setState({[event.target.name]: event.target.value});
   }
-
+  start=async ()=> {
+    try {
+        await this.state.connection.start();
+        console.log("SignalR Connected.");
+        this.state.connection.invoke("JoinRoom", "clients")
+        .catch(function (err) {
+          return console.error(err.toString());})
+    } catch (err) {
+        console.log(err);
+        
+            
+    }
+};
  render() {
-    // if(isScriptLoaded&&isScriptLoadSucceed){
-
+   this.start();
+  //  this.state.connection.start()
+  // .then(result => {
+  //     console.log('Connected!')})
+    // // if(isScriptLoaded&&isScriptLoadSucceed){
+    //   let connection = new HubConnection('/chat');
+ 
+    //   connection.on('NewOrder', data => {
+    //       console.log(data);
+    //   });
     console.log(this.props)
     return (
       <form className="container-min-max-width d-flex flex-column m-2 w-25 "
@@ -42,15 +72,19 @@ class OrderForm extends Component {
            }
             const address = this.state.street+" "+this.state.no+" "+this.state.city+" "+this.state.postalCode ;
             const order = {
-              userId: this.props.user.data.userId,
-              address: address,
+              clientId: this.props.user.data.userId,
+              deliveryAddress: address,
               restaurantId:this.props.cart.restaurant.id,
-              stage:"waiting"
             }
+            // stage:"waiting"
           let orderItems=[];
           // console.log(order)
 
-            //GEOCODING
+this.state.connection.invoke("AddOrder", order).catch(function (err) {
+  return console.error(err.toString());})
+           
+  
+  //GEOCODING
             // geocodeByAddress(address)
             // .then(coordinates=>{
             //   // console.log(coordinates)

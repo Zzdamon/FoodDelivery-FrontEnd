@@ -18,6 +18,8 @@ import * as googleApi from './configs/googleApi'
 
 
 function App({isScriptLoaded,isScriptLoadSucceed}) {
+ 
+
   return(
     <div className="app">
       <Switch>
