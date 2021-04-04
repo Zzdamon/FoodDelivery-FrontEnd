@@ -20,6 +20,7 @@ class OrderForm extends Component {
         super(props);
      
         this.state={
+            userId: props.user.data.userId ,
             items:props.products,
             street:"",
             no:"",
@@ -40,8 +41,10 @@ class OrderForm extends Component {
   start=async ()=> {
     try {
         await this.state.connection.start();
+        this.state.connection.on("UpdatedOrder",(order) => console.log(order) ) ;
         console.log("SignalR Connected.");
-        this.state.connection.invoke("JoinRoom", "clients")
+        
+        this.state.connection.invoke("JoinRoom", "clients", this.state.userId)
         .catch(function (err) {
           return console.error(err.toString());})
     } catch (err) {
@@ -52,39 +55,33 @@ class OrderForm extends Component {
 };
  render() {
    this.start();
-  //  this.state.connection.start()
-  // .then(result => {
-  //     console.log('Connected!')})
-    // // if(isScriptLoaded&&isScriptLoadSucceed){
-    //   let connection = new HubConnection('/chat');
- 
-    //   connection.on('NewOrder', data => {
-    //       console.log(data);
-    //   });
+
     console.log(this.props)
     return (
       <form className="container-min-max-width d-flex flex-column m-2 w-25 "
       onSubmit={ async (event) => 
         {   event.preventDefault();
 
+          //if not logged in, send to login page
            if(!this.props.user.data){
              this.props.history.push('/login')
            }
+           //get the address from the form
             const address = this.state.street+" "+this.state.no+" "+this.state.city+" "+this.state.postalCode ;
+            //build the order
             const order = {
               clientId: this.props.user.data.userId,
               deliveryAddress: address,
               restaurantId:this.props.cart.restaurant.id,
             }
             // stage:"waiting"
+            
+            //declare order items
           let orderItems=[];
-          // console.log(order)
 
-this.state.connection.invoke("AddOrder", order).catch(function (err) {
-  return console.error(err.toString());})
-           
-  
-  //GEOCODING
+
+            //GEOCODING
+          
             // geocodeByAddress(address)
             // .then(coordinates=>{
             //   // console.log(coordinates)
@@ -93,13 +90,21 @@ this.state.connection.invoke("AddOrder", order).catch(function (err) {
             //   //{lat: , lng: }
             // })
             // .catch(error=>console.log(error));
+          
             //END OF GEOCODING
 
             //POST ORDER
-             await yeat.postOrder(order)
+             
+            await yeat.postOrder(order)
               .then(postOrder=>{
+                //send order to couriers
+                this.state.connection.invoke("AddOrder", postOrder).catch(function (err) {
+                  return console.error(err.toString());})
+
                 console.log(postOrder)
-               let Orderid= postOrder.orderId;
+               
+                //initialize orderItems array that we want to post to db with itemId and orderId of the current order and items
+                let Orderid= postOrder.orderId;
                for (let item of this.props.cart.products){
                  console.log(item)
                   orderItems.push({
@@ -107,15 +112,15 @@ this.state.connection.invoke("AddOrder", order).catch(function (err) {
                     orderId:Orderid
                    })
                }
-                       console.log(orderItems)
+                  console.log(orderItems)
 
               })
               //END OF POST ORDER
 
 
-                let orderItem=orderItems[0]
-                console.log(orderItem)
-                console.log(orderItems)
+            // let orderItem=orderItems[0]
+            // console.log(orderItem)
+            // console.log(orderItems)
 
 
                 //POST ORDER ITEMS

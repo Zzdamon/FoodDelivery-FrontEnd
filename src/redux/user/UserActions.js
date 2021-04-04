@@ -1,4 +1,3 @@
-import { signIn, signOut } from '../../apis/firebase/firebase';
 import * as UserConstants from './UserConstants'
 import {auth} from '../../apis/yEat/yeat'
 
