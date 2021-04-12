@@ -83,6 +83,7 @@ class OrderForm extends Component {
              
             await yeat.postOrder(order)
               .then(postOrder=>{
+                postOrder.restaurant= this.props.cart.restaurant;
                 //send order to couriers
                 this.state.connection.invoke("AddOrder", postOrder).catch(function (err) {
                   return console.error(err.toString());})
