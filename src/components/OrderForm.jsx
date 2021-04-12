@@ -10,7 +10,6 @@ import PlacesAutocomplete , {
     getLatLng,
   } from 'react-places-autocomplete';
 import * as yeat from '../apis/yEat/yeat';
-import { HubConnection } from 'signalr-client-react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 
 
@@ -20,44 +19,31 @@ class OrderForm extends Component {
         super(props);
      
         this.state={
+            waiting:false,
             userId: props.user.data.userId ,
             items:props.products,
             street:"",
             no:"",
             city:"",
             postalCode:"",
-            connection: new HubConnectionBuilder()
-            .withUrl('http://localhost:5000/hubs/OrdersHub')
-            .withAutomaticReconnect()
-            .build()
+            connection: props.connection
         }
         
     }
  
 
-  changeHandler(event) {
-    this.setState({[event.target.name]: event.target.value});
-  }
-  start=async ()=> {
-    try {
-        await this.state.connection.start();
-        this.state.connection.on("UpdatedOrder",(order) => console.log(order) ) ;
-        console.log("SignalR Connected.");
-        
-        this.state.connection.invoke("JoinRoom", "clients", this.state.userId)
-        .catch(function (err) {
-          return console.error(err.toString());})
-    } catch (err) {
-        console.log(err);
-        
-            
+    changeHandler(event) {
+      this.setState({[event.target.name]: event.target.value});
     }
-};
  render() {
-   this.start();
 
     console.log(this.props)
     return (
+      this.state.waiting?
+      <div>
+        <h2>Thank you for ordering! Your order will be taken by a courier soon!</h2>
+      </div>
+      :
       <form className="container-min-max-width d-flex flex-column m-2 w-25 "
       onSubmit={ async (event) => 
         {   event.preventDefault();
@@ -128,15 +114,11 @@ class OrderForm extends Component {
                .then(items=>console.log(items))
               //END POST ORDER ITEMs
 
+              //UPDATE WAITNG
+              this.setState({waiting:true})
             
             
-            //aici creez un order daca adresa e valida,
-            //afisez harta cu pin points pe adresa pers si a restaurantului
-            //afisez statutul orderului
             
-            //trimit si coordonatele in pachet? sau salvez in bd 
-            //folosesc form sau autocomplete?
-            //problema cu incarcarea async a api-ului gugal
             //data validation 
 
             

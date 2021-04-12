@@ -15,6 +15,7 @@ import Category from './pages/Category'
 import Restaurant from './pages/Restaurant';
 import scriptLoader,{isScriptLoadSucceed,isScriptLoaded} from 'react-async-script-loader'
 import * as googleApi from './configs/googleApi'
+import GoogleMap from './apis/google maps/maps';
 
 
 function App({isScriptLoaded,isScriptLoadSucceed}) {
@@ -35,6 +36,7 @@ function App({isScriptLoaded,isScriptLoadSucceed}) {
         <Route path="/favourites" component={Favourites}/>
         {/* <Route path="/product/:productId" component={Product}/> */}
         <Route path="/restaurant/:restId" component={Restaurant}/>
+        <Route path="/trackOrder" component={GoogleMap}/>
         <Route path="*" component={Page404}/>
       </Switch>
     </div>
