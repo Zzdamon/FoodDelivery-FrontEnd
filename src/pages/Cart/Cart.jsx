@@ -57,7 +57,7 @@ class Cart extends React.Component {
     return(
 
         this.state.order
-            ?<GoogleMap/>
+            ?<GoogleMap order={this.state.order}/>
             :
         
 

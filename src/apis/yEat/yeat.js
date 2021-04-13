@@ -9,7 +9,7 @@ export const fetchCategories=
 export const auth=(email, password)=>{
     const auth= {email, password};
     
-    return fetch('http://localhost:5000/api/Users/auth',
+    return fetch('http://localhost:5000/api/Clients/auth',
         {
             method: 'POST', // or 'PUT'
             headers: {

@@ -79,11 +79,18 @@ class OrderForm extends Component {
           
             //END OF GEOCODING
 
+            //hard-coded coord
+            const DeliveryLat=44.151547427892936;
+            const DeliveryLng= 28.608205829468318;
+
             //POST ORDER
              
             await yeat.postOrder(order)
               .then(postOrder=>{
                 postOrder.restaurant= this.props.cart.restaurant;
+                postOrder.DeliveryLat=DeliveryLat;
+                postOrder.DeliveryLng=DeliveryLng;
+
                 //send order to couriers
                 this.state.connection.invoke("AddOrder", postOrder).catch(function (err) {
                   return console.error(err.toString());})
