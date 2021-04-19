@@ -17,6 +17,8 @@ class Cart extends React.Component {
             cart: props.cart,
             order: null,
             user:props.user,
+            courierLat:null,
+            courierLng:null,
             connection:new HubConnectionBuilder()
             .withUrl('http://localhost:5000/hubs/OrdersHub')
             .withAutomaticReconnect()
@@ -30,9 +32,11 @@ class Cart extends React.Component {
         try {
             await this.state.connection.start();
             this.state.connection.on("UpdatedOrder",(order) =>{ console.log(order); this.setState({order:order}) }) ;
+            this.state.connection.on("UpdatedLocation",(lat,lng) =>{ console.log(lat+" "+ lng); this.setState({courierLat:lat,
+            courierLng:lng}) }) ;
             console.log("SignalR Connected.");
             
-            this.state.connection.invoke("JoinRoom", "clients", this.state.user.data.userId)
+            this.state.connection.invoke("JoinRoom", "clients", this.state.user.data.clientId)
             .catch(function (err) {
               return console.error(err.toString());})
         } catch (err) {
@@ -57,7 +61,10 @@ class Cart extends React.Component {
     return(
 
         this.state.order
-            ?<GoogleMap order={this.state.order}/>
+            ?<GoogleMap order={this.state.order}
+            courierLat={this.state.courierLat}
+            courierLng={this.state.courierLng}
+            />
             :
         
 

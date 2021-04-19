@@ -56,7 +56,7 @@ class OrderForm extends Component {
             const address = this.state.street+" "+this.state.no+" "+this.state.city+" "+this.state.postalCode ;
             //build the order
             const order = {
-              clientId: this.props.user.data.userId,
+              clientId: this.props.user.data.clientId,
               deliveryAddress: address,
               restaurantId:this.props.cart.restaurant.id,
             }

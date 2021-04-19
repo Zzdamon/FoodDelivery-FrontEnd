@@ -6,11 +6,26 @@ import * as googleApi from '../../configs/googleApi'
 // ... 
 
  class MapContainer extends React.Component {
+
   render() {
+    const style={  
+      // width: '50%',
+      // height: '50%',
+      // display:"flexbox",
+      // justifyContent:"center"
+    }
+
+    const containerStyle = {
+      
+      // display:"flexbox",
+      // justifyContent:"center"
+    }
     return (
       <Map google={this.props.google} zoom={14}
                 initialCenter={{ lat: this.props.order.deliveryLat, lng: this.props.order.deliveryLng }}
-      >
+                style={style}
+                containerStyle={containerStyle}
+                >
         <Marker position={{  lat: this.props.order.deliveryLat, lng: this.props.order.deliveryLng }}
         title="Home"
           // icon={{
@@ -20,10 +35,10 @@ import * as googleApi from '../../configs/googleApi'
           // }}  
         />
 
-<Marker position={{  lat: this.props.cart.restaurant.restaurantLat, lng:  this.props.cart.restaurant.restaurantLng }}
+<Marker position={{  lat: this.props.order.restaurant.restaurantLat, lng:  this.props.order.restaurant.restaurantLng }}
   />
 
-<Marker position={{  lat: 44.17033913544926, lng:  28.61045902108095 }} //courier address
+<Marker position={{  lat: this.props.courierLat, lng:  this.props.courierLng }} //courier address
         />
       </Map>
     );
