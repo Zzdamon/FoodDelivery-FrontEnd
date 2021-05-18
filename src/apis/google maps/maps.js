@@ -28,17 +28,22 @@ import * as googleApi from '../../configs/googleApi'
                 >
         <Marker position={{  lat: this.props.order.deliveryLat, lng: this.props.order.deliveryLng }}
         title="Home"
-          // icon={{
-          //   url: '../../assets/images/home.png'  ,
-          //   anchor: new window.google.maps.Point(36,36),
-          //   scaledSize: new window.google.maps.Size(64,64)
-          // }}  
+        icon={{
+          url: "https://i.imgur.com/VACWIpX.png" ,
+          anchor: new window.google.maps.Point(36,36),
+          scaledSize: new window.google.maps.Size(34,34)
+        }} 
         />
 
-<Marker position={{  lat: this.props.order.restaurant.restaurantLat, lng:  this.props.order.restaurant.restaurantLng }}
-  />
+        <Marker position={{  lat: this.props.order.restaurant.restaurantLat, lng:  this.props.order.restaurant.restaurantLng }}
+        />
 
-<Marker position={{  lat: this.props.courierLat, lng:  this.props.courierLng }} //courier address
+        <Marker position={{  lat: this.props.courierLat, lng:  this.props.courierLng }} //courier address
+            icon={{
+              url: "https://i.imgur.com/qkHG3BF.png",
+              anchor: new window.google.maps.Point(36,36),
+              scaledSize: new window.google.maps.Size(34,34)
+            }} 
         />
       </Map>
     );

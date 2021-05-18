@@ -33,7 +33,10 @@ export default class Category extends Component {
         console.log(this.state.restaurants)
         return (
             <Layout>
-                <h5>{this.props.match.params.category}</h5>
+
+                <h3 className="text-center my-1">{this.props.match.params.category}</h3>
+                
+                
                 <RestaurantList restaurants={this.state.restaurants} />
             </Layout>
         )

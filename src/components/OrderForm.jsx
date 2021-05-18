@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 // import * as GooglePlaces from '../apis/google maps/places';
 import scriptLoader,{isScriptLoadSucceed,isScriptLoaded} from 'react-async-script-loader'
 import * as googleApi from '../configs/googleApi'
+import * as validator from './validators/validators'
+
 import {MapContainer} from '../apis/google maps/maps'
 // import * as yeat from '../apis/yeat/yeat'
 import PlacesAutocomplete , {
@@ -20,13 +22,14 @@ class OrderForm extends Component {
      
         this.state={
             waiting:false,
-            userId: props.user.data.userId ,
+            user: props.user.data ,
             items:props.products,
             street:"",
             no:"",
             city:"",
             postalCode:"",
-            connection: props.connection
+            connection: props.connection,
+            error:null
         }
         
     }
@@ -44,14 +47,23 @@ class OrderForm extends Component {
         <h2>Thank you for ordering! Your order will be taken by a courier soon!</h2>
       </div>
       :
-      <form className="container-min-max-width d-flex flex-column m-2 w-25 "
+      <form className="container-min-max-width d-flex flex-column m-2 w-45 "
       onSubmit={ async (event) => 
         {   event.preventDefault();
 
           //if not logged in, send to login page
            if(!this.props.user.data){
              this.props.history.push('/login')
+             return;
            }
+          //      if(!validator.validateStringLength(this.state.street)
+          //  ||!validator.validateStringLength(this.state.city) 
+          //  ||!validator.validateStringLength(this.state.postalCode)
+          //  ||!validator.validateStringLength(this.state.no)   ){
+          //     this.setState({error:"You didn't check all the fields"})
+          //     return;
+          //  }
+       
            //get the address from the form
             const address = this.state.street+" "+this.state.no+" "+this.state.city+" "+this.state.postalCode ;
             //build the order
@@ -65,32 +77,44 @@ class OrderForm extends Component {
             //declare order items
           let orderItems=[];
 
+          //deliver coordinates
+            let DeliveryLat;
+            let DeliveryLng;
+
 
             //GEOCODING
           
             // geocodeByAddress(address)
             // .then(coordinates=>{
             //   // console.log(coordinates)
+            //   DeliveryLat=coordinates[0].geometry.location.lat();
+            //   DeliveryLng=coordinates[0].geometry.location.lng();
             //   // console.log(coordinates[0].geometry.location.lat())
             //   console.log(coordinates[0].geometry.location.toJSON())
             //   //{lat: , lng: }
             // })
-            // .catch(error=>console.log(error));
+            // .catch(
+            //   error=>{
+            //     console.log(error);
+            //     this.setState({error:error});
+            //     return;
+            //   }
+            // );
           
             //END OF GEOCODING
 
             //hard-coded coord
-            const DeliveryLat=44.151547427892936;
-            const DeliveryLng= 28.608205829468318;
+             DeliveryLat=44.151547427892936;
+             DeliveryLng= 28.608205829468318;
 
             //POST ORDER
-             
+            order.DeliveryLat=DeliveryLat;
+            order.DeliveryLng=DeliveryLng;
+            order.stage= "Active";
             await yeat.postOrder(order)
               .then(postOrder=>{
                 postOrder.restaurant= this.props.cart.restaurant;
-                postOrder.DeliveryLat=DeliveryLat;
-                postOrder.DeliveryLng=DeliveryLng;
-
+              
                 //send order to couriers
                 this.state.connection.invoke("AddOrder", postOrder).catch(function (err) {
                   return console.error(err.toString());})
@@ -109,6 +133,12 @@ class OrderForm extends Component {
                   console.log(orderItems)
 
               })
+              .catch(
+                error=>{
+                  console.log(error);
+                  this.setState({error:error});
+                }
+              );
               //END OF POST ORDER
 
 
@@ -132,12 +162,14 @@ class OrderForm extends Component {
             
         }}
       >
-    <h2>Address:</h2>
+    <h3>Address Form</h3>
     <label htmlFor="street">Street name:</label>
     <input
         className="m-1"
         type="text"
         name="street"
+        required="required"
+        minLength="3"
         onChange={(event) => this.changeHandler(event)}
     />
     <label htmlFor="no">Street number:</label>
@@ -145,6 +177,7 @@ class OrderForm extends Component {
         className="m-1"
         type="number"
         name="no"
+        required="required"
         onChange={(event) => this.changeHandler(event)}
     />
     
@@ -153,21 +186,29 @@ class OrderForm extends Component {
         className="m-1"
         type="text"
         name="city"
+        required="required"
+        minLength="3"
         onChange={(event) => this.changeHandler(event)}
     />
 
     <label htmlFor="postalCode">Postal Code:</label>
     <input
         className="m-1"
-        type="text"
+        type="number"
         name="postalCode"
+        required="required"
+        minLength="5"
         onChange={(event) => this.changeHandler(event)}
     />
     <input 
         className="btn btn-secondary m-1 mt-2"
-        type="submit" value="Save"/>
-
+        type="submit" value="Place Order"/>
+{  this.state.error?
+    <h5>An error has occured. Please try again!</h5>
+    :null
+  }
 </form>
+  
   
     );}
 }

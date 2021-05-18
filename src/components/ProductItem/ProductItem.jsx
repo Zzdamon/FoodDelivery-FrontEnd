@@ -31,10 +31,10 @@ function ProductItem(props){
         
 
     return(
-        <div className="product-item d-flex mx-2 p-1 pb-4 mb-2 d-flex flex-column align-items-center border border-dark rounded">
+        <div className="product-item container-min-max-width d-flex mx-2 p-1 pb-4 mb-2 d-flex flex-column align-items-center border border-dark rounded">
             <div className="d-flex flex-column align-items-center">
             
-                <h6 className="my-2 text-center">{ name }</h6>
+                <h5 className="my-2 text-center">{ name }</h5>
                 <h6>{description}</h6>
                 <h5 className="my-1 text-center">{ price + "RON" }</h5>
             </div>

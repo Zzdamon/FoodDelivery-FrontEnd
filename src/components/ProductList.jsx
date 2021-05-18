@@ -5,7 +5,7 @@ function ProductList(props) {
     const { items,category } = props;
 
     return (
-        <div className="d-flex flex-wrap my-4">
+        <div className="container">
             { items.map((item) => {
                 if(item.categId===category.categId)
                 return <ProductItem

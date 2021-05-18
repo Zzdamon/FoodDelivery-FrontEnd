@@ -1,7 +1,11 @@
 header .logo {
-    width: 150px;
+    width: 120px;
     height: auto;
 
+}
+
+header {
+    background-color: #ffd773;
 }
 
 header .cartDiv{

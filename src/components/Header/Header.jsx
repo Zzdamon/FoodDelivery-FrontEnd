@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/images/gamestart1.png';
+import Logo from '../../assets/images/logo1.png';
 import { ReactComponent as ShoppingCart } from '../../assets/icons/shopping-cart.svg';
 import './Header.css';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import  { ReactComponent as Favourites} from '../../assets/icons/favFill.svg'
 function Header(props) {
     return(
         <header className="border-bottom mb-3">
-            <div className="container-fluid container-min-max-width d-flex justify-content-between align-items-center">
+            <div className="header-container container-fluid container-min-max-width d-flex justify-content-between align-items-center">
                 <Link to="/" className="my-3">
                     <img src={Logo} alt="Game-Start" className="logo"/>
                 </Link>

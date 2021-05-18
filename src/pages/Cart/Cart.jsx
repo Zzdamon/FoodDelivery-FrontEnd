@@ -32,6 +32,7 @@ class Cart extends React.Component {
         try {
             await this.state.connection.start();
             this.state.connection.on("UpdatedOrder",(order) =>{ console.log(order); this.setState({order:order}) }) ;
+            this.state.connection.on("FinishedOrder",(order) =>{ console.log("finished order"); this.setState({order:null}) }) ;
             this.state.connection.on("UpdatedLocation",(lat,lng) =>{ console.log(lat+" "+ lng); this.setState({courierLat:lat,
             courierLng:lng}) }) ;
             console.log("SignalR Connected.");
@@ -76,22 +77,21 @@ class Cart extends React.Component {
                     this.state.cart.products.length
                     ? <div className="w-100">
                         <div className="d-flex justify-content-between text-center h4 text-bold">
-                            <p className="w-25">Produs</p>
-                            <p className="w-25">Pret</p>
-                            <p className="w-25">Cantitate</p>
+                            <p className="w-25">Product</p>
+                            <p className="w-25">Price</p>
+                            <p className="w-25">Quantity</p>
                             <p className="w-25">Total</p>
                         </div>
                         {
                             this.state.cart.products.map(product => {
                                 return <div className="d-flex justify-content-between align-items-center text-center" key={product.id}>
                                     <div className="w-25 d-flex flex-column justify-content-center align-items-center">
-                                        <img src={product.image} alt="Produs"/>
                                         <p>{ product.name }</p>
                                     </div>
-                                    <p className="w-25">{ product.price } { product.currency }</p>
+                                    <p className="w-25">{ product.price } { product.currency } RON</p>
                                     <p className="w-25">{ product.quantity }</p>
                                     <div className="w-25 d-flex justify-content-center">
-                                        <p className="mr-2">{ product.price * product.quantity } { product.currency }</p>
+                                        <p className="mr-2">{ product.price * product.quantity } { product.currency } RON</p>
                                         <div onClick={() => this.props.removeFromCart({itemId: product.itemId})}>
                                             <Close />
                                         </div>
@@ -101,11 +101,11 @@ class Cart extends React.Component {
                         }
                         <div className="d-flex justify-content-end border-top">
                             <div className="w-25 d-flex align-items-center justify-content-center">
-                                <p className="my-4 text-center font-weight-bold">Total de plată: </p>
+                                <p className="my-4 text-center font-weight-bold">Total to pay: </p>
                             </div>
                             <div className="w-25">
                                 <p className="my-4 text-center">
-                                    { totalSum(this.state.cart.products) } lei
+                                    { totalSum(this.state.cart.products) } RON
                                     {/* { props.cart.products[0].currency } */}
                                 </p>
                             </div>
@@ -131,8 +131,8 @@ class Cart extends React.Component {
                         </div> */}
                     </div>
                     : <div className="d-flex w-25 flex-column align-items-center">
-                        <p className="h3">Nu ai produse în coș!</p>
-                        <Link to="/"><button className="btn btn-outline-dark">Inapoi la home</button></Link>
+                        <p className="h3">You don't have products in your cart!</p>
+                        <Link to="/"><button className="btn btn-outline-dark">Back to home</button></Link>
                     </div>
                 }
             </div>

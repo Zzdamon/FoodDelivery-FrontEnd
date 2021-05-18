@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/images/gamestart1.png';
+import Logo from '../../assets/images/logo1.png';
 // import { ReactComponent as Google } from '../../assets/icons/google.svg';
 // import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg';
 import './Login.css'
