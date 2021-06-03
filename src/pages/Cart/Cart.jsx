@@ -74,7 +74,7 @@ class Cart extends React.Component {
                 d-flex flex-column justify-content-center align-items-center">
                 {
 
-                    this.state.cart.products.length
+                    this.props.cart.products.length
                     ? <div className="w-100">
                         <div className="d-flex justify-content-between text-center h4 text-bold">
                             <p className="w-25">Product</p>
@@ -83,8 +83,8 @@ class Cart extends React.Component {
                             <p className="w-25">Total</p>
                         </div>
                         {
-                            this.state.cart.products.map(product => {
-                                return <div className="d-flex justify-content-between align-items-center text-center" key={product.id}>
+                            this.props.cart.products.map(product => {
+                                return <div className="d-flex justify-content-between align-items-center text-center" key={product.itemId}>
                                     <div className="w-25 d-flex flex-column justify-content-center align-items-center">
                                         <p>{ product.name }</p>
                                     </div>
@@ -105,7 +105,7 @@ class Cart extends React.Component {
                             </div>
                             <div className="w-25">
                                 <p className="my-4 text-center">
-                                    { totalSum(this.state.cart.products) } RON
+                                    { totalSum(this.props.cart.products) } RON
                                     {/* { props.cart.products[0].currency } */}
                                 </p>
                             </div>
