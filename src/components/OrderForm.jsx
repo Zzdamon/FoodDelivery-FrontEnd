@@ -115,11 +115,26 @@ class OrderForm extends Component {
               .then(postOrder=>{
                 postOrder.restaurant= this.props.cart.restaurant;
               
-                //send order to couriers
-                this.state.connection.invoke("AddOrder", postOrder).catch(function (err) {
-                  return console.error(err.toString());})
+           
+              //add items to orderItems
+              let orderItemsToSend=[];
 
-                console.log(postOrder)
+              for (let item of this.props.cart.products){
+                 console.log(item)
+                 orderItemsToSend.push({
+                    itemId: item.itemId,
+                    orderId:postOrder.orderId,
+                    item: item,
+                    quantity: item.quantity
+                   })
+               }
+              //add orderItems to the order
+              postOrder.orderItems=orderItemsToSend;
+              console.log("Post order: ")
+              console.log(postOrder)
+                 //send order to couriers
+                 this.state.connection.invoke("AddOrder", postOrder).catch(function (err) {
+                  return console.error(err.toString());})
                
                 //initialize orderItems array that we want to post to db with itemId and orderId of the current order and items
                 let Orderid= postOrder.orderId;
@@ -127,10 +142,12 @@ class OrderForm extends Component {
                  console.log(item)
                   orderItems.push({
                     itemId: item.itemId,
-                    orderId:Orderid
+                    orderId:Orderid,
+                    quantity: item.quantity
                    })
                }
-                  console.log(orderItems)
+                console.log(orderItems)
+                console.log(postOrder)
 
               })
               .catch(
@@ -151,6 +168,10 @@ class OrderForm extends Component {
                yeat.postOrderItems(orderItems)
                .then(items=>console.log(items))
               //END POST ORDER ITEMs
+
+
+
+           
 
               //UPDATE WAITNG
               this.setState({waiting:true})

@@ -12,7 +12,8 @@ constructor(props){
     this.state={
         email:"",
         password:"",
-        name:"",
+        lastName:"",
+        firstName:"",
         accountType:"client"
     }
 }
@@ -34,10 +35,11 @@ changeHandler(event) {
                 
                 onSubmit={(event) =>
                         {   event.preventDefault();
-                           register(this.state.email,this.state.password,this.state.name,this.state.accountType)
+                           register(this.state.email,this.state.password,this.state.firstName,this.state.lastName )
                             .then(user=>{this.props.registerUser(user);
                                     this.props.history.push("/")
                             })
+                            .catch(error=>console.log(error))
                           
                             
                          
@@ -52,11 +54,18 @@ changeHandler(event) {
                     name="email"
                     onChange={(event) => this.changeHandler(event)}
                 />
-                  <label htmlFor="name">Name:</label>
+                  <label htmlFor="lastName">Last Name:</label>
                 <input
                     className="m-1"
                     type="text"
-                    name="name"
+                    name="lastName"
+                    onChange={(event) => this.changeHandler(event)}
+                />
+                   <label htmlFor="firstName">First Name:</label>
+                <input
+                    className="m-1"
+                    type="text"
+                    name="firstName"
                     onChange={(event) => this.changeHandler(event)}
                 />
                 <label htmlFor="password">Password:</label>
