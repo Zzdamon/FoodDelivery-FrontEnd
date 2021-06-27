@@ -22,7 +22,6 @@ function updateUserError(payload) {
 export function loginUser(email,password) { 
     return (dispatch) => {
         dispatch(startLoading());
-        // if(provider==="google"){
 
             auth(email,password).then(userData => {
                 dispatch(updateUserData(userData));

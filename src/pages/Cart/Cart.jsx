@@ -41,9 +41,7 @@ class Cart extends React.Component {
             .catch(function (err) {
               return console.error(err.toString());})
         } catch (err) {
-            console.log(err);
-            
-                
+            console.log(err);          
         }
     };
     
@@ -59,14 +57,30 @@ class Cart extends React.Component {
         }, 0)
     }
 
-    return(
-
-        this.state.order
-            ?<GoogleMap order={this.state.order}
+    if(this.state.order){
+        if(this.state.order.courierId){
+            return(
+                <GoogleMap order={this.state.order}
             courierLat={this.state.courierLat}
             courierLng={this.state.courierLng}
             />
-            :
+            )
+        }
+        return(
+            <Layout>
+                 <h2>Thank you for ordering! Your order will be taken by a courier soon!</h2>
+            </Layout>
+        )
+    }
+
+    return(
+
+        // this.state.order.courierId
+        //     ?<GoogleMap order={this.state.order}
+        //     courierLat={this.state.courierLat}
+        //     courierLng={this.state.courierLng}
+        //     />
+        //     :
         
 
         <Layout>
@@ -111,7 +125,8 @@ class Cart extends React.Component {
                             </div>
                         </div>
                         <OrderForm {...this.props}
-                        connection={this.state.connection}/>
+                        connection={this.state.connection}
+                        updateState={(order)=>this.setState({order:order})}/>
                         
                         {/* <div className="container-min-max-width d-flex justify-content-end">
                                 <button className="btn w-25 btn-success mw-6"

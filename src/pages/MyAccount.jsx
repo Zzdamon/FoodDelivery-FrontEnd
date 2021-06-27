@@ -36,23 +36,23 @@ render(){
                     </div> */}
 
                     <div className="col-sm-12 col-md-6 m-2">
-                        <h5>Name: {this.state.user.data.name}</h5>
+                         <h5>Name: {this.state.user.data.lastName} {this.state.user.data.firstName} </h5>
                         <h5>Email: {this.state.user.data.email}</h5>
-                        <h5>Last signed in: {
+                        {/* <h5>Last signed in: {
                          this.state.user.data.lastLoginAt 
                          ?(new Date(parseInt(this.state.user.data.lastLoginAt))).toDateString()
                         :new String("Just now!")}</h5>
-                        
+                         */}
                     </div>
                     </div>
-                        <h3 className="m-2">Activity</h3>
+                        {/* <h3 className="m-2">Activity</h3>
                         {this.state.orderCount>0
                         ? <Link to="/orders">
                             <h5 className="mx-2">Orders: {this.state.orderCount}</h5>
                         </Link> 
                         :<h5 className="mx-2">Nothing to show!</h5>
 
-                        }
+                        } */}
 
                 </div>
                 : this.props.history.push("/login")

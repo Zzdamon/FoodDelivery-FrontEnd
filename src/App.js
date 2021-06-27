@@ -20,7 +20,6 @@ import GoogleMap from './apis/google maps/maps';
 
 function App({isScriptLoaded,isScriptLoadSucceed}) {
  
-
   return(
     <div className="app">
       <Switch>
@@ -34,7 +33,6 @@ function App({isScriptLoaded,isScriptLoadSucceed}) {
         <Route path="/my-account" component={MyAccount}/>
         <Route path="/orders" component={Orders}/>
         <Route path="/favourites" component={Favourites}/>
-        {/* <Route path="/product/:productId" component={Product}/> */}
         <Route path="/restaurant/:restId" component={Restaurant}/>
         <Route path="/trackOrder" component={GoogleMap}/>
         <Route path="*" component={Page404}/>
@@ -44,4 +42,5 @@ function App({isScriptLoaded,isScriptLoadSucceed}) {
 }
 
 export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${googleApi.GOOGLE_API_KEY}&libraries=places`])(App)
+
         {/* <Route path="/restaurant/:categoryName" component={Restaurant}/> */}

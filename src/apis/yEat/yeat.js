@@ -11,7 +11,7 @@ export const auth=(email, password)=>{
     
     return fetch('http://localhost:5000/api/Clients/auth',
         {
-            method: 'POST', // or 'PUT'
+            method: 'POST', 
             headers: {
                         'Content-Type': 'application/json',
                      },

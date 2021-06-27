@@ -12,7 +12,7 @@ function Header(props) {
         <header className="border-bottom mb-3">
             <div className="header-container container-fluid container-min-max-width d-flex justify-content-between align-items-center">
                 <Link to="/" className="my-3">
-                    <img src={Logo} alt="Game-Start" className="logo"/>
+                    <img src={Logo} alt="Yeat" className="logo"/>
                 </Link>
                 <div>
                     { props.user
@@ -27,11 +27,11 @@ function Header(props) {
                             : <Link to="/login" className="h5 mb-0">Login</Link>
                         }
 
-                    <div className="d-flex align-items-center">
+                    {/* <div className="d-flex align-items-center">
                             <Link to="/favourites" className="d-flex">
                                 <Favourites className="ml-2"/>
                             </Link>
-                            </div>
+                            </div> */}
 
                         <div className="cartDiv d-flex align-items-center">
                             <Link to="/cart" className="cartLink d-flex">

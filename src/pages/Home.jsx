@@ -3,6 +3,7 @@ import Layout from '../components/Layout/Layout';
 // import Homecategory from '../components/Homecategory';
 import HomeCategory from '../components/HomeCategory';
 import {fetchCategories} from '../apis/yEat/yeat';
+
 class Home extends React.Component{
     constructor() {
         super();

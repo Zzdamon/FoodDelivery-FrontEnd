@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { emptyCart, removeFromCart } from '../redux/cart/CartActions';
 // import * as GooglePlaces from '../apis/google maps/places';
 import scriptLoader,{isScriptLoadSucceed,isScriptLoaded} from 'react-async-script-loader'
 import * as googleApi from '../configs/googleApi'
@@ -174,7 +176,9 @@ class OrderForm extends Component {
            
 
               //UPDATE WAITNG
-              this.setState({waiting:true})
+              // this.setState({waiting:true})
+              this.props.emptyCart();
+              this.props.updateState(order)
             
             
             
@@ -233,8 +237,22 @@ class OrderForm extends Component {
   
     );}
 }
-export default OrderForm
-// export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${googleApi.GOOGLE_API_KEY}&libraries=places`])(OrderForm)
+
+function mapStateToProps(state) {
+  return {
+      cart: state.cart,
+      user: state.user
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      removeFromCart: (payload) => dispatch(removeFromCart(payload)),
+      emptyCart: ()=>dispatch(emptyCart())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);// export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${googleApi.GOOGLE_API_KEY}&libraries=places`])(OrderForm)
 
 
   //  handleChange = address => {
