@@ -7,6 +7,7 @@ class LoginForm extends Component {
 constructor(props){
     super(props);
     this.state={
+        error:false,
         email:"",
         password:""
     }
@@ -23,13 +24,23 @@ changeHandler(event) {
 
 
     render(){
-        return(
+        return( <div className="container-min-max-width d-flex flex-column align-items-center justify-content-center">
             <form className="container-min-max-width d-flex flex-column m-2 w-25 "
                 
                 onSubmit={(event) =>
                         {   event.preventDefault();
                             
-                            this.props.loginUser(this.state.email,this.state.password);
+                            try{
+
+                                this.props.loginUser(this.state.email,this.state.password);
+                                if(this.state.user.data===null){
+                                this.setState({error:true})
+
+                                }
+                                this.setState({error:false})
+                            }catch(error){
+                                this.setState({error:true})
+                            }
                             // const employee = this.state;
                             // // employee.date=date;
                             // this.props.addEmployee(employee)
@@ -54,9 +65,13 @@ changeHandler(event) {
                 
                 <input 
                     className="btn btn-secondary m-1 mt-2"
-                    type="submit" value="Save"/>
+                    type="submit" value="Login"/>
 
             </form>
+            {  this.state.error?
+                <h5 className="text-danger">The email or password are not correct. Please try again!</h5>
+                :null
+              }</div>
         )
     }
 }

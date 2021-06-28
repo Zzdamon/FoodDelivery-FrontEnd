@@ -58,13 +58,6 @@ class OrderForm extends Component {
              this.props.history.push('/login')
              return;
            }
-          //      if(!validator.validateStringLength(this.state.street)
-          //  ||!validator.validateStringLength(this.state.city) 
-          //  ||!validator.validateStringLength(this.state.postalCode)
-          //  ||!validator.validateStringLength(this.state.no)   ){
-          //     this.setState({error:"You didn't check all the fields"})
-          //     return;
-          //  }
        
            //get the address from the form
             const address = this.state.street+" "+this.state.no+" "+this.state.city+" "+this.state.postalCode ;
@@ -83,29 +76,17 @@ class OrderForm extends Component {
             let DeliveryLat;
             let DeliveryLng;
 
-
-            //GEOCODING
+            try {
+              //GEOCODING
           
-            // geocodeByAddress(address)
-            // .then(coordinates=>{
-            //   // console.log(coordinates)
+            // const coordinates = await geocodeByAddress(address)
+
             //   DeliveryLat=coordinates[0].geometry.location.lat();
             //   DeliveryLng=coordinates[0].geometry.location.lng();
-            //   // console.log(coordinates[0].geometry.location.lat())
-            //   console.log(coordinates[0].geometry.location.toJSON())
-            //   //{lat: , lng: }
-            // })
-            // .catch(
-            //   error=>{
-            //     console.log(error);
-            //     this.setState({error:error});
-            //     return;
-            //   }
-            // );
           
             //END OF GEOCODING
 
-            //hard-coded coord
+             //hard-coded coord
              DeliveryLat=44.151547427892936;
              DeliveryLng= 28.608205829468318;
 
@@ -180,6 +161,12 @@ class OrderForm extends Component {
               this.props.emptyCart();
               this.props.updateState(order)
             
+
+            } catch (error) {
+              this.setState({error:error});
+            }
+            
+           
             
             
             //data validation 

@@ -32,10 +32,10 @@ class Login extends React.Component {
                 ? 
                 <div>
                     <LoginForm {...this.props} />
-                    <div className="container-fluid d-flex align-items-center">
-                    <h1 className="h5">or register right now!</h1>
-                    <button className="btn btn-secondary m-1 mt-2"
-                    onClick={()=>this.setState({register:true})}>Sign Up</button>
+                    <div className="container-fluid d-flex align-items-center justify-content-center">
+                        <h1 className="h5">or register right now!</h1>
+                        <button className="btn btn-secondary m-1 mt-2"
+                            onClick={()=>this.setState({register:true})}>Sign Up</button>
                     </div>
                 </div>
                 :<SignUpForm {...this.props} />
