@@ -7,3 +7,6 @@
 .cart-page svg {
     cursor: pointer;
 }
+.cart-container{
+    min-height: 20rem;
+}

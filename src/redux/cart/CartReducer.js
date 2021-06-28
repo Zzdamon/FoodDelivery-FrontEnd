@@ -75,6 +75,33 @@ export function cartReducer(state = initialState, action) {
             localStorage.setItem("yeat-cart",JSON.stringify(items))
             return items;
         
+        case CartConstants.increaseQuantity:
+            // let item=state.products.find(item=>item.itemId===action.payload.itemId);
+            const increaseQuantityListOfProducts=state.products.map(product => {
+                if(product.itemId===action.payload.itemId){
+                    // if(product.quantity<15)
+                    product.quantity+=1;
+                }
+                return product;
+            })
+            return Object.assign( {}, state, {
+                products: increaseQuantityListOfProducts
+            })
+            
+            case CartConstants.decreaseQuantity:
+                // let item=state.products.find(item=>item.itemId===action.payload.itemId);
+                const decreaseQuantityListOfProducts = state.products.map(product => {
+                    if(product.itemId === action.payload.itemId){
+                        if(product.quantity > 1){
+                        product.quantity -= 1;
+                        }
+                    }
+                    return product;
+                })
+                return Object.assign( {}, state, {
+                    products: decreaseQuantityListOfProducts
+                })
+
         case CartConstants.empty:
             localStorage.setItem("yeat-cart",null)
             return Object.assign({}, state, {

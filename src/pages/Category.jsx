@@ -34,7 +34,7 @@ export default class Category extends Component {
         return (
             <Layout>
 
-                <h3 className="text-center my-1">{this.props.match.params.category}</h3>
+                <h3 className="text-center my-1">{this.props.match.params.category.replace("_"," ")}</h3>
                 
                 
                 <RestaurantList restaurants={this.state.restaurants} />

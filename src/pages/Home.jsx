@@ -29,7 +29,7 @@ class Home extends React.Component{
         return(
             <Layout>
                 <div className="container-fluid container-min-max-width">
-                    <h3>What do you want to eat today?</h3>
+                    <h3 className="my-2 text-center">What do you want to eat today?</h3>
                     <div className="row">
                         {this.state.categories.map((category) =>
                             <HomeCategory

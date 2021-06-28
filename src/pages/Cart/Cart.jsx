@@ -1,14 +1,17 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
-import { emptyCart, removeFromCart } from '../../redux/cart/CartActions';
+import { emptyCart, removeFromCart, decreaseQuantity, increaseQuantity } from '../../redux/cart/CartActions';
 import { Link } from 'react-router-dom';
 import './Cart.css';
 import { ReactComponent as Close} from '../../assets/icons/close.svg';
+import { ReactComponent as Down} from '../../assets/icons/down.svg';
+import { ReactComponent as Up} from '../../assets/icons/up.svg';
 import OrderForm from '../../components/OrderForm';
 import { GoogleApiWrapper, Map } from 'google-maps-react';
 import GoogleMap, { MapContainer } from '../../apis/google maps/maps';
 import { HubConnectionBuilder } from '@microsoft/signalr';
+// import { decreaseQuantity, increaseQuantity } from '../../redux/cart/CartActions';
 
 class Cart extends React.Component {
     constructor(props){
@@ -32,7 +35,7 @@ class Cart extends React.Component {
         try {
             await this.state.connection.start();
             this.state.connection.on("UpdatedOrder",(order) =>{ console.log(order); this.setState({order:order}) }) ;
-            this.state.connection.on("FinishedOrder",(order) =>{ console.log("finished order"); this.setState({order:null}) }) ;
+            this.state.connection.on("FinishedTheOrder",(order) =>{ console.log("finished order"); this.setState({order:null}) }) ;
             this.state.connection.on("UpdatedLocation",(lat,lng) =>{ console.log(lat+" "+ lng); this.setState({courierLat:lat,
             courierLng:lng}) }) ;
             console.log("SignalR Connected.");
@@ -65,10 +68,14 @@ class Cart extends React.Component {
             courierLng={this.state.courierLng}
             />
             )
-        }
+        } 
+
         return(
-            <Layout>
-                 <h2>Thank you for ordering! Your order will be taken by a courier soon!</h2>
+            <Layout >
+                <div className="cart-container d-flex flex-column justify-content-center align-items-center">
+
+                 <h2 className="text-center">Thank you for ordering! Your order will be taken by a courier soon!</h2>
+                </div>
             </Layout>
         )
     }
@@ -98,12 +105,16 @@ class Cart extends React.Component {
                         </div>
                         {
                             this.props.cart.products.map(product => {
-                                return <div className="d-flex justify-content-between align-items-center text-center" key={product.itemId}>
+                                return <div className="d-flex justify-content-between align-items-center text-center m-1" key={product.itemId}>
                                     <div className="w-25 d-flex flex-column justify-content-center align-items-center">
                                         <p>{ product.name }</p>
                                     </div>
                                     <p className="w-25">{ product.price } { product.currency } RON</p>
-                                    <p className="w-25">{ product.quantity }</p>
+                                    <div className="w-25">    
+                                        <Up onClick={ () => this.props.increaseQuantity({itemId: product.itemId}) } />
+                                        <p className="m-0">{ product.quantity }</p>
+                                        <Down  onClick={ () => this.props.decreaseQuantity({itemId: product.itemId}) }  />
+                                    </div>
                                     <div className="w-25 d-flex justify-content-center">
                                         <p className="mr-2">{ product.price * product.quantity } { product.currency } RON</p>
                                         <div onClick={() => this.props.removeFromCart({itemId: product.itemId})}>
@@ -145,8 +156,8 @@ class Cart extends React.Component {
                                 >Order</button>
                         </div> */}
                     </div>
-                    : <div className="d-flex w-25 flex-column align-items-center">
-                        <p className="h3">You don't have products in your cart!</p>
+                    : <div className="cart-container container-min-max-width d-flex flex-column justify-content-center align-items-center">
+                        <p className="h3 m-3 text-center">You don't have products in your cart!</p>
                         <Link to="/"><button className="btn btn-outline-dark">Back to home</button></Link>
                     </div>
                 }
@@ -166,7 +177,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         removeFromCart: (payload) => dispatch(removeFromCart(payload)),
-        emptyCart: ()=>dispatch(emptyCart())
+        emptyCart: ()=>dispatch(emptyCart()),
+        increaseQuantity: (payload) => dispatch(increaseQuantity(payload)),
+        decreaseQuantity: (payload) => dispatch(decreaseQuantity(payload))
+    
     };
 }
 
