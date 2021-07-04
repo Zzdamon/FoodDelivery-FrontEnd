@@ -9,7 +9,7 @@ function RestaurantList(props) {
             { restaurants.map((rest) => {
                 return <CategoryRestaurant
                     {...rest}
-                    key={rest.id}
+                    key={rest.restaurantId}
                 />
             })}
         </div>

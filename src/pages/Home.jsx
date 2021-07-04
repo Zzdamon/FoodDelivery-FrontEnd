@@ -33,7 +33,7 @@ class Home extends React.Component{
                     <div className="row">
                         {this.state.categories.map((category) =>
                             <HomeCategory
-                                key={category.id}
+                                key={category.tagId}
                                 route={category.tagId}
                                 name={category.tagId}
                                 description={category.description}
