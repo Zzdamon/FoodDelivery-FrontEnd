@@ -95,3 +95,11 @@ export const postOrderItems=(orderItems)=>{
         })
   .then(response => response.json())
 }
+
+export const getCurrentOrder=(clientId)=>{
+    // const auth= {email, password};
+    
+    return fetch(`http://localhost:5000/api/Orders/ActiveByClient/${clientId}`)
+    .then(response => response.json())
+  
+}

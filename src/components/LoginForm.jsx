@@ -24,8 +24,9 @@ changeHandler(event) {
 
 
     render(){
-        return( <div className="container-min-max-width d-flex flex-column align-items-center justify-content-center">
-            <form className="container-min-max-width d-flex flex-column m-2 w-25 "
+        return( 
+        <div className="container-min-max-width d-flex flex-column align-items-center justify-content-center">
+            <form className="container-min-max-width d-flex flex-column m-2 "
                 
                 onSubmit={(event) =>
                         {   event.preventDefault();
@@ -41,9 +42,7 @@ changeHandler(event) {
                             }catch(error){
                                 this.setState({error:true})
                             }
-                            // const employee = this.state;
-                            // // employee.date=date;
-                            // this.props.addEmployee(employee)
+                           
                         }
                     }
             >

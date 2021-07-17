@@ -79,16 +79,16 @@ class OrderForm extends Component {
             try {
               //GEOCODING
           
-            // const coordinates = await geocodeByAddress(address)
+            const coordinates = await geocodeByAddress(address)
 
-            //   DeliveryLat=coordinates[0].geometry.location.lat();
-            //   DeliveryLng=coordinates[0].geometry.location.lng();
+              DeliveryLat=coordinates[0].geometry.location.lat();
+              DeliveryLng=coordinates[0].geometry.location.lng();
           
             //END OF GEOCODING
 
              //hard-coded coord
-             DeliveryLat=44.151547427892936;
-             DeliveryLng= 28.608205829468318;
+            //  DeliveryLat=44.151547427892936;
+            //  DeliveryLng= 28.608205829468318;
 
             //POST ORDER
             order.DeliveryLat=DeliveryLat;

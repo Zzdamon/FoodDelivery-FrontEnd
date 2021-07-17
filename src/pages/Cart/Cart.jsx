@@ -11,6 +11,7 @@ import OrderForm from '../../components/OrderForm';
 import { GoogleApiWrapper, Map } from 'google-maps-react';
 import GoogleMap, { MapContainer } from '../../apis/google maps/maps';
 import { HubConnectionBuilder } from '@microsoft/signalr';
+import { getCurrentOrder } from '../../apis/yEat/yeat';
 // import { decreaseQuantity, increaseQuantity } from '../../redux/cart/CartActions';
 
 class Cart extends React.Component {
@@ -50,7 +51,11 @@ class Cart extends React.Component {
     
     componentDidMount(){
       this.start();
-    
+      if(this.props.user.data ==null)
+      return;
+      getCurrentOrder(this.props.user.data.clientId)
+      .then(order => {this.setState({order: order}); console.log(this.state) } )
+      .catch(error => console.log(error))
     }
 
     render(){
