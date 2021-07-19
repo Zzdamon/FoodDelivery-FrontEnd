@@ -44,7 +44,7 @@ function ProductItem(props){
                     className="btn btn-outline-primary"
                     onClick={() =>addItemToCart(props)}
                 >
-                Adaugă în coș
+                Add to cart
                 </button>
             </div>
         </div>
